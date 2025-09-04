@@ -1,7 +1,7 @@
 // ============================================================================
 //         PROJETO WAR ESTRUTURADO - DESAFIO DE CÓDIGO
 // ============================================================================
-//        
+//             ALUNO: IOKIM DIEGO MARTINS E SILVA       
 // ============================================================================
 //
 // OBJETIVOS:
@@ -15,12 +15,22 @@
 // ============================================================================
 
 // Inclusão das bibliotecas padrão necessárias para entrada/saída, alocação de memória, manipulação de strings e tempo.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 // --- Constantes Globais ---
 // Definem valores fixos para o número de territórios, missões e tamanho máximo de strings, facilitando a manutenção.
+#define MAX_TERRITORIO 5
+#define TAM_STRING 100
 
 // --- Estrutura de Dados ---
 // Define a estrutura para um território, contendo seu nome, a cor do exército que o domina e o número de tropas.
+struct Territorio{
+    char nome[TAM_STRING];
+    char cor[TAM_STRING];
+    int tropas;
+};
 
 // --- Protótipos das Funções ---
 // Declarações antecipadas de todas as funções que serão usadas no programa, organizadas por categoria.
@@ -32,7 +42,51 @@
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
 int main() {
+    struct Territorio territorios[MAX_TERRITORIO];
+    int totalTerritorios = 0;
+    int opcao;
+    
     // 1. Configuração Inicial (Setup):
+    
+    do{
+        // Exibe o menu de opções
+        printf("===========================================\n");
+        printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
+        printf("===========================================\n");
+        printf("         CONFIGURACAO - SETUP\n");
+        printf("===========================================\n");
+        printf("1 - Cadastrar novo Territorio\n");
+        printf("2 - Listar todos os Territorios\n");
+        printf("0 - Sair\n");
+        printf("-------------------------------------------\n");
+        printf("Escolha uma opcao: ");
+
+        // Lê a opção do usuário.
+        scanf("%d", &opcao);
+        limparBufferEntrada(); // Limpa o '\n' deixado pelo scanf.
+
+        // --- Processamento da Opção ---
+        switch (opcao){
+            case 1: // Cadastrar novo território
+                system("cls"); // Limpa a tela do console;
+                printf("===========================================\n");
+                printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
+                printf("===========================================\n");
+                printf("         CONFIGURACAO - SETUP\n");
+                printf("===========================================\n");
+                printf("\n");
+                printf("    1 - Cadastrar novo Territorio\n");
+                printf("\n");
+                printf("===========================================\n");
+            case 2: // Listar todos os territórios cadastrados
+            default: // Opção inválida
+                printf("\nOpcao invalida! Tente novamente.\n");
+                printf("\nPressione Enter para continuar...");
+                getchar();
+                break;
+        }
+    } while (opcao != 0);
+    
     // - Define o locale para português.
     // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
     // - Aloca a memória para o mapa do mundo e verifica se a alocação foi bem-sucedida.
@@ -51,7 +105,7 @@ int main() {
     // 3. Limpeza:
     // - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
 
-    return 0;
+    return 0; // Fim do Jogo
 }
 
 // --- Implementação das Funções ---
@@ -96,3 +150,7 @@ int main() {
 
 // limparBufferEntrada():
 // Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
+void limparBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
