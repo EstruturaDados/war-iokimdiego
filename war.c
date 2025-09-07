@@ -34,7 +34,10 @@ struct Territorio{
 
 // --- Protótipos das Funções ---
 // Declarações antecipadas de todas as funções que serão usadas no programa, organizadas por categoria.
+
 // Funções de setup e gerenciamento de memória:
+void limparBufferEntrada(); 
+
 // Funções de interface com o usuário:
 // Funções de lógica principal do jogo:
 // Função utilitária:
@@ -49,36 +52,110 @@ int main() {
     // 1. Configuração Inicial (Setup):
     
     do{
+        system("clear"); // Limpa a tela do console;
         // Exibe o menu de opções
         printf("===========================================\n");
         printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
         printf("===========================================\n");
         printf("         CONFIGURACAO - SETUP\n");
         printf("===========================================\n");
-        printf("1 - Cadastrar novo Territorio\n");
+        printf("1 - Criar novo Territorio\n");
         printf("2 - Listar todos os Territorios\n");
         printf("0 - Sair\n");
-        printf("-------------------------------------------\n");
+        printf("...........................................\n");
         printf("Escolha uma opcao: ");
-
         // Lê a opção do usuário.
         scanf("%d", &opcao);
         limparBufferEntrada(); // Limpa o '\n' deixado pelo scanf.
-
+        
         // --- Processamento da Opção ---
         switch (opcao){
-            case 1: // Cadastrar novo território
-                system("cls"); // Limpa a tela do console;
-                printf("===========================================\n");
-                printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
-                printf("===========================================\n");
-                printf("         CONFIGURACAO - SETUP\n");
-                printf("===========================================\n");
-                printf("\n");
-                printf("    1 - Cadastrar novo Territorio\n");
-                printf("\n");
-                printf("===========================================\n");
+            case 1: // Criar novo território
+                if(totalTerritorios < MAX_TERRITORIO) {
+                    system("clear"); // Limpa a tela do console;
+                    printf("===========================================\n");
+                    printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
+                    printf("===========================================\n");
+                    printf("         CONFIGURACAO - SETUP\n");
+                    printf("===========================================\n");
+                    printf("\n");
+                    printf("    1 - Criar novo Territorio\n");
+                    printf("\n");
+                    printf("...........................................\n");
+                    printf("\n");
+        
+                    printf("Digite o nome do Territorio: ");
+                    fgets(territorios[totalTerritorios].nome, TAM_STRING, stdin);
+        
+        
+                    printf("Informe a cor do Territorio: ");
+                    fgets(territorios[totalTerritorios].cor, TAM_STRING, stdin);
+        
+                    territorios[totalTerritorios].nome[strcspn(territorios[totalTerritorios].nome, "\n")]= '\0';
+                    territorios[totalTerritorios].cor[strcspn(territorios[totalTerritorios].cor, "\n")]= '\0';
+        
+                    printf("Informe a quantidade de tropas do Territorio: ");
+                    scanf("%d", &territorios[totalTerritorios].tropas);
+                    limparBufferEntrada();
+        
+                    totalTerritorios++;
+        
+                    printf("\nTerritorio criado com sucesso!\n");
+
+                } else {
+                    printf("Quantidade maxima atingida! Nao foi possivel criar um novo territorio.");
+                }
+
+                printf("\nPressione Enter para continuar...");
+                getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu.
+                break;
+                
             case 2: // Listar todos os territórios cadastrados
+                system("clear"); // Limpa a tela do console;
+                if (totalTerritorios == 0) {
+                    printf("===========================================\n");
+                    printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
+                    printf("===========================================\n");
+                    printf("         CONFIGURACAO - SETUP\n");
+                    printf("===========================================\n");
+                    printf("\n");
+                    printf("   2 - Listar todos os Territorios\n");
+                    printf("\n");
+                    printf("...........................................\n");
+                    printf("\n");
+                    printf("       Nenhum territorio criado!\n");
+                    printf("\n");
+                    printf("...........................................\n");
+                } else {
+                    printf("===========================================\n");
+                    printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
+                    printf("===========================================\n");
+                    printf("         CONFIGURACAO - SETUP\n");
+                    printf("===========================================\n");
+                    printf("\n");
+                    printf("   2 - Listar todos os Territorios\n");
+                    printf("\n");
+                    printf("...........................................\n");
+                    printf("\n");
+                    for (int i = 0; i < totalTerritorios; i++){
+                        printf("---------------------------------------------------------\n");
+                        printf("TERRITORIO %d\n", i + 1);
+                        printf("Nome: %s\n", territorios[i].nome);
+                        printf("Cor: %s\n", territorios[i].cor);
+                        printf("Tropas: %d\n", territorios[i].tropas);
+                    }
+                    printf("...........................................\n");
+                }
+
+                printf("\nPressione Enter para continuar...");
+                getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu.
+                break;
+
+            case 0: //Sair do jogo
+                system("clear"); // Limpa a tela do console;
+                printf("\nSaindo do jogo...\n");
+                break;
+            
             default: // Opção inválida
                 printf("\nOpcao invalida! Tente novamente.\n");
                 printf("\nPressione Enter para continuar...");
