@@ -39,6 +39,7 @@ struct Territorio{
 void limparBufferEntrada(); 
 
 // Funções de interface com o usuário:
+void menuOpcoes();
 // Funções de lógica principal do jogo:
 // Função utilitária:
 
@@ -52,13 +53,7 @@ int main() {
     // 1. Configuração Inicial (Setup):
     
     do{
-        system("clear"); // Limpa a tela do console;
-        // Exibe o menu de opções
-        printf("===========================================\n");
-        printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
-        printf("===========================================\n");
-        printf("         CONFIGURACAO - SETUP\n");
-        printf("===========================================\n");
+        menuOpcoes(); // Chama a função de interface padrão
         printf("1 - Criar novo Territorio\n");
         printf("2 - Listar todos os Territorios\n");
         printf("0 - Sair\n");
@@ -72,13 +67,7 @@ int main() {
         switch (opcao){
             case 1: // Criar novo território
                 if(totalTerritorios < MAX_TERRITORIO) {
-                    system("clear"); // Limpa a tela do console;
-                    printf("===========================================\n");
-                    printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
-                    printf("===========================================\n");
-                    printf("         CONFIGURACAO - SETUP\n");
-                    printf("===========================================\n");
-                    printf("\n");
+                    menuOpcoes();
                     printf("    1 - Criar novo Territorio\n");
                     printf("\n");
                     printf("...........................................\n");
@@ -111,14 +100,8 @@ int main() {
                 break;
                 
             case 2: // Listar todos os territórios cadastrados
-                system("clear"); // Limpa a tela do console;
                 if (totalTerritorios == 0) {
-                    printf("===========================================\n");
-                    printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
-                    printf("===========================================\n");
-                    printf("         CONFIGURACAO - SETUP\n");
-                    printf("===========================================\n");
-                    printf("\n");
+                    menuOpcoes();
                     printf("   2 - Listar todos os Territorios\n");
                     printf("\n");
                     printf("...........................................\n");
@@ -127,12 +110,7 @@ int main() {
                     printf("\n");
                     printf("...........................................\n");
                 } else {
-                    printf("===========================================\n");
-                    printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
-                    printf("===========================================\n");
-                    printf("         CONFIGURACAO - SETUP\n");
-                    printf("===========================================\n");
-                    printf("\n");
+                    menuOpcoes();
                     printf("   2 - Listar todos os Territorios\n");
                     printf("\n");
                     printf("...........................................\n");
@@ -230,4 +208,16 @@ int main() {
 void limparBufferEntrada() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+
+//menuOpcoes():
+// Função para reaproveitamento de código e padronização da interface
+void menuOpcoes() {
+    system("clear"); // Limpa a tela do console;
+    printf("===========================================\n");
+    printf("    WAR 2025 - CONQUISTE O MUNDO!\n");
+    printf("===========================================\n");
+    printf("         CONFIGURACAO - SETUP\n");
+    printf("===========================================\n");
+    printf("\n");
 }
