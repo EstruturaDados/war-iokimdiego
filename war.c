@@ -97,18 +97,30 @@ int main() {
 
                 printf("\nPressione Enter para continuar...");
                 getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu.
+                // break;
+                
+                menuOpcoes();
+                printf("   2 - Listar todos os Territorios\n");
+                printf("\n");
+                printf("...........................................\n");
+                printf("\n");
+                for (int i = 0; i < totalTerritorios; i++){
+                    printf("---------------------------------------------------------\n");
+                    printf("TERRITORIO %d\n", i + 1);
+                    printf("Nome: %s\n", territorios[i].nome);
+                    printf("Cor: %s\n", territorios[i].cor);
+                    printf("Tropas: %d\n", territorios[i].tropas);
+                }
+                printf("...........................................\n");
+                
+                printf("\nPressione Enter para voltar ao Menu Principal...");
+                getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu.
                 break;
                 
             case 2: // Listar todos os territórios cadastrados
                 if (totalTerritorios == 0) {
-                    menuOpcoes();
-                    printf("   2 - Listar todos os Territorios\n");
                     printf("\n");
-                    printf("...........................................\n");
-                    printf("\n");
-                    printf("       Nenhum territorio criado!\n");
-                    printf("\n");
-                    printf("...........................................\n");
+                    printf("Nenhum territorio criado!\n");
                 } else {
                     menuOpcoes();
                     printf("   2 - Listar todos os Territorios\n");
