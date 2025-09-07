@@ -49,6 +49,7 @@ int main() {
     struct Territorio territorios[MAX_TERRITORIO];
     int totalTerritorios = 0;
     int opcao;
+    int simNao; // Variável para controlar se o usuário quer continuar cadastrando territórios
     
     // 1. Configuração Inicial (Setup):
     
@@ -66,53 +67,67 @@ int main() {
         // --- Processamento da Opção ---
         switch (opcao){
             case 1: // Criar novo território
-                if(totalTerritorios < MAX_TERRITORIO) {
+                simNao = 1; // Inicializa para entrar no loop
+                
+                while (simNao == 1) // Continua enquanto o usuário quiser cadastrar novos territórios
+                {
+                    if(totalTerritorios < MAX_TERRITORIO && simNao == 1) {
+                        menuOpcoes();
+                        printf("    1 - Criar novo Territorio\n");
+                        printf("\n");
+                        printf("...........................................\n");
+                        printf("\n");
+            
+                        printf("Digite o nome do Territorio: ");
+                        fgets(territorios[totalTerritorios].nome, TAM_STRING, stdin);
+            
+            
+                        printf("Informe a cor do Territorio: ");
+                        fgets(territorios[totalTerritorios].cor, TAM_STRING, stdin);
+            
+                        territorios[totalTerritorios].nome[strcspn(territorios[totalTerritorios].nome, "\n")]= '\0';
+                        territorios[totalTerritorios].cor[strcspn(territorios[totalTerritorios].cor, "\n")]= '\0';
+            
+                        printf("Informe a quantidade de tropas do Territorio: ");
+                        scanf("%d", &territorios[totalTerritorios].tropas);
+                        limparBufferEntrada();
+            
+                        totalTerritorios++;
+            
+                        printf("\nTerritorio criado com sucesso!\n");
+
+                    } else {
+                        printf("Quantidade maxima atingida! Nao foi possivel criar um novo territorio.");
+                        simNao = 0; // Sai do loop se atingir o máximo
+                        
+                        break;
+                    }
+                    
+                    // Lista os territórios já cadastrados
                     menuOpcoes();
-                    printf("    1 - Criar novo Territorio\n");
+                    printf("   2 - Listar todos os Territorios\n");
                     printf("\n");
                     printf("...........................................\n");
                     printf("\n");
-        
-                    printf("Digite o nome do Territorio: ");
-                    fgets(territorios[totalTerritorios].nome, TAM_STRING, stdin);
-        
-        
-                    printf("Informe a cor do Territorio: ");
-                    fgets(territorios[totalTerritorios].cor, TAM_STRING, stdin);
-        
-                    territorios[totalTerritorios].nome[strcspn(territorios[totalTerritorios].nome, "\n")]= '\0';
-                    territorios[totalTerritorios].cor[strcspn(territorios[totalTerritorios].cor, "\n")]= '\0';
-        
-                    printf("Informe a quantidade de tropas do Territorio: ");
-                    scanf("%d", &territorios[totalTerritorios].tropas);
-                    limparBufferEntrada();
-        
-                    totalTerritorios++;
-        
-                    printf("\nTerritorio criado com sucesso!\n");
-
-                } else {
-                    printf("Quantidade maxima atingida! Nao foi possivel criar um novo territorio.");
+                    for (int i = 0; i < totalTerritorios; i++){
+                        printf("---------------------------------------------------------\n");
+                        printf("TERRITORIO %d\n", i + 1);
+                        printf("Nome: %s\n", territorios[i].nome);
+                        printf("Cor: %s\n", territorios[i].cor);
+                        printf("Tropas: %d\n", territorios[i].tropas);
+                    }
+                    printf("...........................................\n");
+                    
+                    printf("\n");
+                    printf("Deseja cadastrar outro territorio?\n");
+                    printf("1 - Sim\n");
+                    printf("0 - Nao\n");
+                    printf("Escolha uma opcao: ");
+                    // Lê a opção do usuário.
+                    scanf("%d", &simNao);
+                    limparBufferEntrada(); // Limpa o '\n' deixado pelo scanf.
                 }
 
-                printf("\nPressione Enter para continuar...");
-                getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu.
-                // break;
-                
-                menuOpcoes();
-                printf("   2 - Listar todos os Territorios\n");
-                printf("\n");
-                printf("...........................................\n");
-                printf("\n");
-                for (int i = 0; i < totalTerritorios; i++){
-                    printf("---------------------------------------------------------\n");
-                    printf("TERRITORIO %d\n", i + 1);
-                    printf("Nome: %s\n", territorios[i].nome);
-                    printf("Cor: %s\n", territorios[i].cor);
-                    printf("Tropas: %d\n", territorios[i].tropas);
-                }
-                printf("...........................................\n");
-                
                 printf("\nPressione Enter para voltar ao Menu Principal...");
                 getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu.
                 break;
@@ -137,7 +152,7 @@ int main() {
                     printf("...........................................\n");
                 }
 
-                printf("\nPressione Enter para continuar...");
+                printf("\nPressione Enter para voltar ao Menu Principal...");
                 getchar(); // Pausa para o usuário ler a mensagem antes de voltar ao menu.
                 break;
 
